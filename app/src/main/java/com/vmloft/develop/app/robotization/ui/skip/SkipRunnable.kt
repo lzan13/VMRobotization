@@ -10,15 +10,16 @@ import com.vmloft.develop.library.tools.utils.VMSystem
  * Create by lzan13 on 2022/3/18
  * 描述：跳过任务执行程序
  */
-class SkipRunnable(val context: Context, val config: SkipConfig, val packageName: String) : Runnable {
+class SkipRunnable(val context: Context, val packageName: String) : Runnable {
 
-    private val maxRetryCount = 15 // 最大重复查找次数
+    private val maxRetryCount = 20 // 最大重复查找次数
     private var adsCount = 0 // 当前重试次数
     private var dialogCount = 0 // 当前重试次数
+    private lateinit var config: SkipConfig
 
     override fun run() {
-        adsCount = 0
-        dialogCount = 0
+        config = SkipHelper.getConfig()
+
         skipADS()
 
         Thread.sleep(config.skipDelay)

@@ -2,7 +2,7 @@
     <string name="app_name">小不点</string>
 
 
-    <string name="app_robotization_title">小不点-自动化小帮手</string>
+    <string name="app_robotization_title">⭕小不点-自动化小帮手</string>
 
     <string name="nav_home">首页</string>
     <string name="nav_mine">我的</string>
@@ -34,7 +34,7 @@
     <string name="accessibility_status_title">开启无障碍设置</string>
     <string name="accessibility_status_desc">进入无障碍设置页，找到『小不点』(某些系统会在『已下载应用』或『已安装服务』内)，进行开启</string>
     <string name="permission_float_window_hint">此操作需要开启悬浮窗权限才能使用</string>
-    <string name="accessibility_service_hint">⭕️『小不点』主要是用于辅助实现一些重复繁琐的操作，解放双手，从而节省你的时间！\n\n❤️温馨提示：\n\n⭕开启辅助功能会收到系统的例行警示提醒！\n\n⭕『小不点』不会进行侵害您的利益行为，也不会收集和传递你的任何信息，请放心使用</string>
+    <string name="accessibility_service_hint">『小不点』主要是用于辅助实现一些重复繁琐的操作，解放双手，从而节省你的时间！\n\n❤️温馨提示：\n\n⭕开启辅助功能会收到系统的例行警示提醒！\n\n⭕『小不点』不会进行侵害您的利益行为，也不会收集和传递你的任何信息，请放心使用</string>
     <string name="accessibility_service_not_start">无障碍服务未启动，无法进行辅助操作</string>
     <string name="accessibility_not_found">没找到控件</string>
 
@@ -42,7 +42,7 @@
     <string name="live_dialog_title">直播配置</string>
     <string name="live_title">直播自动化配置</string>
     <string name="live_float_title">直播自动化悬浮窗</string>
-    <string name="live_float_desc">开启后，可通过悬浮窗快速进行自动化配置与开关！\n通过手势或Home键回到桌面可随时中断操作！</string>
+    <string name="live_float_desc">开启后，可通过悬浮窗快速进行自动化配置与开关！\n通过锁屏可随时中断操作！</string>
     <!--消息-->
     <string name="live_msg_title">直播自动化消息处理</string>
     <string name="live_msg_delay_tips">消息延迟，单位 ms(1000ms=1s) 不能发送过快</string>

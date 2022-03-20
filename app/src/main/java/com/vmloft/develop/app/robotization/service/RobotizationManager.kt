@@ -75,7 +75,7 @@ object RobotizationManager {
      */
     fun onEvent(event: AccessibilityEvent) {
 //        VMLog.d("无障碍服务事件触发 ${event.action} - ${event.eventType} - ${event.packageName} - ${event.className}")
-//        VMLog.d("无障碍服务事件触发 $event")
+        VMLog.d("无障碍服务事件触发 $event")
 
         // TODO 这里要通知关心事件回调的地方
         // 通知其它辅助功能部分事件变化，具体要怎么做看各自需求

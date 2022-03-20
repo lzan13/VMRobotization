@@ -16,12 +16,18 @@ import com.vmloft.develop.app.robotization.R
 import com.vmloft.develop.app.robotization.common.SPManager
 import com.vmloft.develop.app.robotization.service.RobotizationManager
 import com.vmloft.develop.app.robotization.service.RobotizationService
+import com.vmloft.develop.app.robotization.ui.skip.SkipHelper
+import com.vmloft.develop.app.robotization.ui.skip.SkipRunnable
 import com.vmloft.develop.app.robotization.widget.FloatTouchListener
 import com.vmloft.develop.library.base.utils.CUtils
 import com.vmloft.develop.library.base.utils.show
 import com.vmloft.develop.library.common.utils.JsonUtils
 import com.vmloft.develop.library.tools.utils.VMStr
 import com.vmloft.develop.library.tools.utils.logger.VMLog
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.ScheduledFuture
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -33,10 +39,12 @@ object LiveHelper {
 
     private const val handleStopWhat = 0x00 // 中断自动化
 
-    private const val handleLiveThumbWhat = 0x10 // 触发直播点赞
-    private const val handleLiveMsgWhat = 0x11 // 触发直播消息
-    private const val handleLiveBuyWhat = 0x12 // 触发抢购
+    const val liveThumbWhat = 0x10 // 触发直播点赞
+    const val liveMsgWhat = 0x11 // 触发直播消息
+    const val liveBuyWhat = 0x12 // 触发抢购
 
+    private lateinit var executorService: ScheduledExecutorService
+    private lateinit var executorProcess: ScheduledFuture<Any>
 
     private lateinit var context: Context
     private lateinit var windowManager: WindowManager
@@ -61,9 +69,9 @@ object LiveHelper {
             super.handleMessage(msg)
             when (msg.what) {
                 handleStopWhat -> onServiceInterrupt() // 直播下单
-                handleLiveThumbWhat -> liveThumb() // 直播点赞
-                handleLiveMsgWhat -> liveMsg() // 直播消息
-                handleLiveBuyWhat -> liveBuy() // 直播下单
+//                liveThumbWhat -> liveThumb() // 直播点赞
+//                liveMsgWhat -> liveMsg() // 直播消息
+//                liveBuyWhat -> liveBuy() // 直播下单
             }
         }
     }
@@ -75,6 +83,9 @@ object LiveHelper {
             return
         }
         isInit = true
+
+        executorService = Executors.newSingleThreadScheduledExecutor()
+        executorProcess = executorService.schedule({ }, 0, TimeUnit.MILLISECONDS) as ScheduledFuture<Any>
 
         // 获取配置信息
         val configStr = SPManager.getLiveConfig()
@@ -124,6 +135,9 @@ object LiveHelper {
 
             event.packageName?.let {
                 currPackageName = event.packageName.toString()
+                if (currPackageName == "com.android.systemui" && event.text[0].contains("锁定")) {
+                    mHandler.sendEmptyMessage(handleStopWhat)
+                }
             }
             event.className?.let {
                 // 这里只记录 Activity 的 className
@@ -136,7 +150,7 @@ object LiveHelper {
                     }
                     // 如果是淘宝，执行购买操作，内部会自动判断是否开启了够买，这里只是调用下入口
                     if (event.text[0] == "淘宝" || event.text[0] == "商品图") {
-                        liveBuy()
+                        startLiveTask(liveBuyWhat)
                     }
                 }
             }
@@ -146,8 +160,15 @@ object LiveHelper {
                 mHandler.sendEmptyMessageDelayed(handleStopWhat, 300)
             }
         }
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+            event.packageName?.let {
+                currPackageName = event.packageName.toString()
+                if (currPackageName == "com.android.systemui" && event.text != null && event.text.isNotEmpty() && event.text[0].contains("锁定")) {
+                    mHandler.sendEmptyMessage(handleStopWhat)
+                }
+            }
+        }
     }
-
 
     /**
      * 保存配置
@@ -246,29 +267,29 @@ object LiveHelper {
     }
 
     /**
-     * 改变直播消息自动化处理状态
-     */
-    private fun changeLiveMsgStatus() {
-        if (msgStatus) {
-            msgStatus = false
-            mHandler.removeMessages(handleLiveMsgWhat)
-        } else {
-            msgStatus = true
-            mHandler.sendEmptyMessage(handleLiveMsgWhat)
-        }
-        bindFloatInfo()
-    }
-
-    /**
      * 改变直播点赞自动化处理状态
      */
     private fun changeLiveThumbStatus() {
         if (thumbStatus) {
             thumbStatus = false
-            mHandler.removeMessages(handleLiveThumbWhat)
+            stopLiveTask()
         } else {
             thumbStatus = true
-            mHandler.sendEmptyMessage(handleLiveThumbWhat)
+            startLiveTask(liveThumbWhat)
+        }
+        bindFloatInfo()
+    }
+
+    /**
+     * 改变直播消息自动化处理状态
+     */
+    private fun changeLiveMsgStatus() {
+        if (msgStatus) {
+            msgStatus = false
+            stopLiveTask()
+        } else {
+            msgStatus = true
+            startLiveTask(liveMsgWhat)
         }
         bindFloatInfo()
     }
@@ -279,10 +300,10 @@ object LiveHelper {
     private fun changeLiveBuyStatus() {
         if (buyStatus) {
             buyStatus = false
-            mHandler.removeMessages(handleLiveBuyWhat)
+            stopLiveTask()
         } else {
             buyStatus = true
-            mHandler.sendEmptyMessage(handleLiveBuyWhat)
+            startLiveTask(liveBuyWhat)
         }
         bindFloatInfo()
     }
@@ -317,140 +338,19 @@ object LiveHelper {
     }
 
     /**
-     * 直播点赞
+     * 开始执行直播任务
      */
-    private fun liveThumb() {
-        if (!thumbStatus) return
-        if (!RobotizationManager.isInit) return context.show(R.string.accessibility_service_not_start)
-        RobotizationManager.clickPosition(config.thumbX + CUtils.random(16, true), config.thumbY + CUtils.random(16, true))
-        // 发送下一条 Handler 消息
-        mHandler.sendEmptyMessageDelayed(handleLiveThumbWhat, config.thumbDelay + CUtils.random(32))
+    private fun startLiveTask(what: Int) {
+        executorProcess = executorService.schedule(LiveRunnable(context, what, currPackageName, currClassName), 0, TimeUnit.MILLISECONDS) as ScheduledFuture<Any>
     }
 
     /**
-     * 直播消息
+     * 停止正在直播任务
      */
-    private fun liveMsg() {
-        if (!msgStatus) return
-        if (!RobotizationManager.isInit) return context.show(R.string.accessibility_service_not_start)
-        // 查找输入框点击入口
-        var chatNode = when (currPackageName) {
-            "com.taobao.taobao" -> RobotizationManager.getNodeInfo("taolive_chat_btn_text", currPackageName)
-            "com.ss.android.ugc.aweme" -> RobotizationManager.getNodeInfo("dfo", currPackageName)
-            else -> return VMLog.d("-lz- 不支持的直播间")
-        }
-        chatNode?.let {
-            RobotizationManager.clickNode(it)
-        }
-
-        Thread.sleep(180)
-
-        // 查找输入框，输入消息
-        var msgNode = when (currPackageName) {
-            "com.taobao.taobao" -> RobotizationManager.getNodeInfo("taolive_edit_text", currPackageName)
-            "com.ss.android.ugc.aweme" -> {
-                val msgETContainer = RobotizationManager.getNodeInfo("dj2", currPackageName)
-                msgETContainer?.getChild(0)
-            }
-            else -> return VMLog.d("-lz- 不支持的直播间")
-        }
-        msgNode?.let {
-            RobotizationManager.editAction(it, config.msgContent)
-        }
-
-        Thread.sleep(180)
-
-        // 查找发送按钮
-        var sendNode = when (currPackageName) {
-            "com.taobao.taobao" -> RobotizationManager.getNodeInfo("taolive_edit_send", currPackageName)
-            "com.ss.android.ugc.aweme" -> RobotizationManager.getNodeInfo("lq7", currPackageName)
-            else -> return VMLog.d("-lz- 不支持的直播间")
-        }
-        sendNode?.let {
-            RobotizationManager.clickNode(it)
-        }
-
-        // 发送延迟 Handler 消息
-        mHandler.sendEmptyMessageDelayed(handleLiveMsgWhat, config.msgDelay)
+    private fun stopLiveTask() {
+        if (executorProcess.isCancelled || executorProcess.isDone) return
+        executorProcess.cancel(false)
     }
 
-    /**
-     * 直播抢单
-     */
-    private fun liveBuy() {
-        mHandler.removeMessages(handleLiveBuyWhat)
-        if (!buyStatus) return
-        if (!RobotizationManager.isInit) return context.show(R.string.accessibility_service_not_start)
-
-        // 只在商品详情和抢购界面才查找对应按钮
-        if (currClassName == "com.taobao.android.detail.wrapper.activity.DetailActivity") {
-            // 查找确认购买按钮，淘宝确认购买有多重情况
-            var buyNode = RobotizationManager.getNodeInfo("确认")
-                ?: RobotizationManager.getNodeInfo("领券购买")
-                ?: RobotizationManager.getNodeInfo("立即购买")
-            // 直接点击按钮有时候会不生效，这里改为点击按钮所在坐标
-            // if (buyBtn != null) service?.clickView(buyBtn)
-            if (buyNode == null) {
-                // 没找到，延迟下一次重新查找
-                mHandler.sendEmptyMessageDelayed(handleLiveBuyWhat, config.buyDelay)
-            } else {
-                // 找到了直接点击
-                RobotizationManager.clickNode(buyNode)
-            }
-        }
-
-        // 商品选择
-        if (currClassName == "com.taobao.android.sku.widget.a" || currClassName == "com.taobao.android.tbsku.TBXSkuActivity") {
-            if (config.buyContent.isNotEmpty()) {
-                val list = VMStr.strToList(config.buyContent)
-                list.forEach {
-                    Thread.sleep(config.buyDelay)
-                    var itemNode = RobotizationManager.getNodeInfo(it)
-                    if (itemNode == null) {
-                        context.show("没找到 $it 继续")
-                        // 没找到，延迟下一次重新查找
-                        mHandler.sendEmptyMessageDelayed(handleLiveBuyWhat, config.buyDelay)
-                    } else {
-                        RobotizationManager.clickNode(itemNode)
-                    }
-                }
-            }
-            Thread.sleep(config.buyDelay)
-            // 查找确认购买按钮，淘宝确认购买有多重情况
-            var buyNode = RobotizationManager.getNodeInfo("确认")
-                ?: RobotizationManager.getNodeInfo("领券购买")
-                ?: RobotizationManager.getNodeInfo("立即购买")
-            // 直接点击按钮有时候会不生效，这里改为点击按钮所在坐标
-            // if (buyBtn != null) service?.clickView(buyBtn)
-            if (buyNode == null) {
-                // 没找到，延迟下一次重新查找
-                mHandler.sendEmptyMessageDelayed(handleLiveBuyWhat, config.buyDelay)
-            } else {
-                // 找到了直接点击
-                RobotizationManager.clickNode(buyNode)
-            }
-        }
-        // 提交订单
-        if (currClassName == "com.taobao.android.purchase.aura.TBBuyActivity") {
-            // 查找提交订单按钮
-            var submitNode = RobotizationManager.getNodeInfo("提交订单")
-//            // TODO 测试下
-//            if (submitNode == null) {
-//                context.show("找不到提交订单按钮，继续")
-//                // 没找到，延迟下一次重新查找
-//                mHandler.sendEmptyMessageDelayed(handleLiveBuyWhat, config.buyDelay)
-//            } else {
-//                context.show("找到了提交订单按钮")
-//            }
-            // 直接点击按钮有时候会不生效，这里改为点击按钮所在坐标
-            // if (submitNode != null) service?.clickView(submitBtn)
-            if(submitNode ==null) {
-                // 没找到，延迟下一次重新查找
-                mHandler.sendEmptyMessageDelayed(handleLiveBuyWhat, config.buyDelay)
-            }else{
-                RobotizationManager.clickNode(submitNode)
-            }
-        }
-    }
 
 }

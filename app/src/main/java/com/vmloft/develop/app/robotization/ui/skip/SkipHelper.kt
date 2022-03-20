@@ -172,7 +172,7 @@ object SkipHelper {
                                     it.contains("检测到更新") || it.contains("版本更新")
                                 ) {
                                     VMLog.e("有弹窗")
-                                    startSkipADS()
+                                    startSkipTask()
                                     return
                                 }
                             }
@@ -182,10 +182,10 @@ object SkipHelper {
                     currPackageName = packageName
                     currClassName = className
                     // 包名已切换先停止其他的处理
-                    stopSkipADS()
+                    stopSkipTask()
                     // App 包名首次切换开始新的跳过处理
                     if (launcherPackages.contains(packageName)) {
-                        startSkipADS()
+                        startSkipTask()
                     }
                 }
             }
@@ -193,16 +193,16 @@ object SkipHelper {
     }
 
     /**
-     * 开始执行跳过广告
+     * 开始执行跳过任务
      */
-    private fun startSkipADS() {
-        executorProcess = executorService.schedule(SkipRunnable(context, config, currPackageName), config.skipDelay, TimeUnit.MILLISECONDS) as ScheduledFuture<Any>
+    private fun startSkipTask() {
+        executorProcess = executorService.schedule(SkipRunnable(context, currPackageName), config.skipDelay, TimeUnit.MILLISECONDS) as ScheduledFuture<Any>
     }
 
     /**
-     * 停止正在跳过的广告
+     * 停止正在跳过任务
      */
-    private fun stopSkipADS() {
+    private fun stopSkipTask() {
         if (executorProcess.isCancelled || executorProcess.isDone) return
         executorProcess.cancel(false)
     }
