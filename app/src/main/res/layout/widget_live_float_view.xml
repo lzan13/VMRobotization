@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card_common_bg"
+    android:padding="@dimen/vm_dimen_8">
+
+    <ImageView
+        android:id="@+id/settingsIV"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:background="@drawable/selector_circle_common_icon_bg"
+        android:padding="@dimen/vm_dimen_10"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/dragIV"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:background="@drawable/selector_circle_common_icon_bg"
+        android:padding="@dimen/vm_dimen_10"
+        android:src="@drawable/ic_finger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/miniIV"
+        android:layout_width="@dimen/vm_dimen_36"
+        android:layout_height="@dimen/vm_dimen_36"
+        android:background="@drawable/selector_circle_common_icon_bg"
+        android:padding="@dimen/vm_dimen_10"
+        android:src="@drawable/ic_minimize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/floatCL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dragIV">
+
+        <ImageView
+            android:id="@+id/liveThumbStatusIV"
+            android:layout_width="@dimen/vm_dimen_36"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:background="@drawable/selector_float_icon_bg"
+            android:padding="@dimen/vm_dimen_10"
+            android:src="@drawable/ic_thumb"
+            app:layout_constraintEnd_toStartOf="@+id/liveMsgStatusIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/app_icon_light" />
+
+        <ImageView
+            android:id="@+id/liveMsgStatusIV"
+            android:layout_width="@dimen/vm_dimen_36"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:layout_marginStart="@dimen/vm_dimen_8"
+            android:background="@drawable/selector_float_icon_bg"
+            android:padding="@dimen/vm_dimen_10"
+            android:src="@drawable/ic_msg"
+            app:layout_constraintEnd_toStartOf="@+id/liveBuyStatusIV"
+            app:layout_constraintStart_toEndOf="@+id/liveThumbStatusIV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/app_icon_light" />
+
+        <ImageView
+            android:id="@+id/liveBuyStatusIV"
+            android:layout_width="@dimen/vm_dimen_36"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:layout_marginStart="@dimen/vm_dimen_8"
+            android:background="@drawable/selector_float_icon_bg"
+            android:padding="@dimen/vm_dimen_10"
+            android:src="@drawable/ic_buy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/liveMsgStatusIV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/app_icon_light" />
+
+        <ImageView
+            android:id="@+id/liveMsgLabelIV"
+            android:layout_width="@dimen/vm_dimen_36"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:layout_marginTop="@dimen/vm_dimen_4"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="@dimen/vm_dimen_10"
+            android:src="@drawable/ic_msg"
+            app:layout_constraintBottom_toBottomOf="@+id/liveMsgContentTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/liveThumbStatusIV" />
+
+        <TextView
+            android:id="@+id/liveMsgContentTV"
+            style="@style/AppText.Tips"
+            android:layout_width="@dimen/vm_dimen_0"
+            android:layout_height="@dimen/vm_dimen_36"
+            android:layout_marginTop="@dimen/vm_dimen_4"
+            android:background="@drawable/shape_input_border_bg"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:paddingStart="@dimen/vm_dimen_36"
+            android:text="我来了😁~"
+            app:layout_constraintBottom_toBottomOf="@+id/liveMsgLabelIV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/liveMsgStatusIV"
+            tools:text="我来了😁~" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

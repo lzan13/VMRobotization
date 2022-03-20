@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">小不点</string>
+
+
+    <string name="app_robotization_title">小不点-自动化小帮手</string>
+
+    <string name="nav_home">首页</string>
+    <string name="nav_mine">我的</string>
+
+    <!--首页-->
+    <string name="home_skip_title">万物皆可跳</string>
+    <string name="home_skip_desc">😏点击开屏广告、开启通知弹窗，青少年模式等</string>
+    <string name="home_live_title">直播辅助</string>
+    <string name="home_live_desc">😎给喜欢的主播点赞、清单、刷消息，我在行呀</string>
+    <string name="home_test_title">测试无障碍</string>
+    <string name="home_test_desc">👺测试无障碍功能，包括控件查找/点击/手势操作等</string>
+    <string name="home_feedback_title">集思广益</string>
+    <string name="home_feedback_desc">✌️你说我上手，解放你的那双手</string>
+
+    <string name="feedback_dialog">💭关注公众号【穿裤衩闯天下】随时反馈问题</string>
+    <string name="feedback_copy_gzh">复制公众号</string>
+    <string name="feedback_copy_gzh_tips">已复制公众号到剪切板，去微信关注我吧</string>
+
+    <!--前台保活文本-->
+    <string name="app_keep_alive_tips">小不点正在努力搬砖中👨‍💻‍</string>
+    <string name="keep_alive_status_title">保活通知栏</string>
+    <string name="keep_alive_status_desc">提升应用进程优先级，尽量避免被系统杀死，保证『小不点』功能正常运行</string>
+    <string name="keep_alive_notify_dialog">哎呀，通知栏被关闭了，『小不点』没法保活呢，快去打开它</string>
+
+    <string name="hide_task_status_title">隐藏后台</string>
+    <string name="hide_task_status_desc">在最近任务列表隐藏『小不点』，建议下拉锁定后隐藏</string>
+
+    <!--无障碍文本-->
+    <string name="accessibility_status_title">开启无障碍设置</string>
+    <string name="accessibility_status_desc">进入无障碍设置页，找到『小不点』(某些系统会在『已下载应用』或『已安装服务』内)，进行开启</string>
+    <string name="permission_float_window_hint">此操作需要开启悬浮窗权限才能使用</string>
+    <string name="accessibility_service_hint">⭕️『小不点』主要是用于辅助实现一些重复繁琐的操作，解放双手，从而节省你的时间！\n\n❤️温馨提示：\n\n⭕开启辅助功能会收到系统的例行警示提醒！\n\n⭕『小不点』不会进行侵害您的利益行为，也不会收集和传递你的任何信息，请放心使用</string>
+    <string name="accessibility_service_not_start">无障碍服务未启动，无法进行辅助操作</string>
+    <string name="accessibility_not_found">没找到控件</string>
+
+    <!--直播相关-->
+    <string name="live_dialog_title">直播配置</string>
+    <string name="live_title">直播自动化配置</string>
+    <string name="live_float_title">直播自动化悬浮窗</string>
+    <string name="live_float_desc">开启后，可通过悬浮窗快速进行自动化配置与开关！\n通过手势或Home键回到桌面可随时中断操作！</string>
+    <!--消息-->
+    <string name="live_msg_title">直播自动化消息处理</string>
+    <string name="live_msg_delay_tips">消息延迟，单位 ms(1000ms=1s) 不能发送过快</string>
+    <string name="live_msg_content_tips">消息内容，可逗号分隔作为多条消息循环发送</string>
+    <!--点赞-->
+    <string name="live_thumb_title">直播自动化点赞处理</string>
+    <string name="live_thumb_delay_tips">点赞延迟，单位 ms(1000ms=1s)</string>
+    <string name="live_thumb_count_tips">点赞次数</string>
+    <string name="live_thumb_points_x_tips">点赞 X 坐标</string>
+    <string name="live_thumb_points_y_tips">点赞 Y 坐标</string>
+    <!--抢单-->
+    <string name="live_buy_delay_tips">购买延迟，单位 ms(1000ms=1s)</string>
+    <string name="live_buy_content_tips">商品选项内容，多项用","分隔</string>
+
+    <!--跳过相关-->
+    <string name="skip_title">跳过配置</string>
+    <string name="skip_switch_title">跳过开关</string>
+    <string name="skip_switch_desc">『小不点』会尝试自动跳过开屏广告、青少年/通知/更新/等弹窗</string>
+    <string name="skip_toast_title">跳过提醒</string>
+    <string name="skip_toast_desc">『小不点』成功执行后会发出 Toast 轻提醒</string>
+    <string name="skip_delay_tips">跳过延迟，单位 ms(1000ms=1s)</string>
+    <string name="skip_toast_msg_tips">定制 Toast 提醒内容</string>
+</resources>

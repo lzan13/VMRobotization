@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/vm_dimen_32"
+    tools:context=".ui.live.LiveDialog">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/shape_card_common_bg">
+
+        <TextView
+            android:id="@+id/titleTV"
+            style="@style/AppText.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/vm_dimen_16"
+            android:text="@string/live_dialog_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/liveConfigSV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/titleTV">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--时间-->
+                <EditText
+                    android:id="@+id/msgDelayET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="3000"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/msgDelayTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:layout_marginEnd="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_msg_delay_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/msgDelayET"
+                    app:layout_constraintStart_toStartOf="@+id/msgDelayET"
+                    app:layout_constraintTop_toTopOf="@+id/msgDelayET" />
+
+                <!--内容-->
+                <EditText
+                    android:id="@+id/msgContentET"
+                    style="@style/AppEdit.MultiLine.Border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    android:lines="2"
+                    android:overScrollMode="always"
+                    android:text="我来了😁~"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintTop_toBottomOf="@+id/msgDelayET" />
+
+                <TextView
+                    android:id="@+id/msgContentTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:layout_marginEnd="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_msg_content_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/msgContentET"
+                    app:layout_constraintStart_toStartOf="@+id/msgContentET"
+                    app:layout_constraintTop_toTopOf="@+id/msgContentET" />
+
+                <!--时间-->
+                <EditText
+                    android:id="@+id/thumbDelayET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="200"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintTop_toBottomOf="@+id/msgContentET" />
+
+                <TextView
+                    android:id="@+id/thumbDelayTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:layout_marginEnd="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_thumb_delay_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/thumbDelayET"
+                    app:layout_constraintStart_toStartOf="@+id/thumbDelayET"
+                    app:layout_constraintTop_toTopOf="@+id/thumbDelayET" />
+
+                <!--坐标 X-->
+                <EditText
+                    android:id="@+id/thumbXET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="@dimen/vm_dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_16"
+                    android:layout_marginTop="@dimen/vm_dimen_16"
+                    android:layout_marginEnd="@dimen/vm_dimen_8"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="256"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintEnd_toStartOf="@+id/thumbYET"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/thumbDelayET" />
+
+                <TextView
+                    android:id="@+id/thumbXTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_thumb_points_x_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/thumbXET"
+                    app:layout_constraintStart_toStartOf="@+id/thumbXET"
+                    app:layout_constraintTop_toTopOf="@+id/thumbXET" />
+
+                <EditText
+                    android:id="@+id/thumbYET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="@dimen/vm_dimen_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_8"
+                    android:layout_marginEnd="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="256"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/thumbXET"
+                    app:layout_constraintTop_toTopOf="@+id/thumbXET" />
+
+                <TextView
+                    android:id="@+id/thumbYTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_thumb_points_x_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/thumbYET"
+                    app:layout_constraintStart_toStartOf="@+id/thumbYET"
+                    app:layout_constraintTop_toTopOf="@+id/thumbYET" />
+
+                <!--时间-->
+                <EditText
+                    android:id="@+id/buyDelayET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="200"
+                    android:textColor="@color/app_title"
+                    app:layout_constraintTop_toBottomOf="@+id/thumbXET" />
+
+                <TextView
+                    android:id="@+id/buyDelayTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:layout_marginEnd="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_buy_delay_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/buyDelayET"
+                    app:layout_constraintStart_toStartOf="@+id/buyDelayET"
+                    app:layout_constraintTop_toTopOf="@+id/buyDelayET" />
+
+                <!--商品选项-->
+                <EditText
+                    android:id="@+id/buyContentET"
+                    style="@style/AppEdit.Single.Border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/vm_dimen_16"
+                    android:hint="@string/input_hint"
+                    tools:text="均码,黑色"
+                    app:layout_constraintTop_toBottomOf="@+id/buyDelayET" />
+
+                <TextView
+                    android:id="@+id/buyContentTipsTV"
+                    style="@style/AppText.Tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/vm_dimen_12"
+                    android:layout_marginEnd="@dimen/vm_dimen_12"
+                    android:background="@color/app_common_shape"
+                    android:text="@string/live_buy_content_tips"
+                    app:layout_constraintBottom_toTopOf="@+id/buyContentET"
+                    app:layout_constraintStart_toStartOf="@+id/buyContentET"
+                    app:layout_constraintTop_toTopOf="@+id/buyContentET" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/negativeTV"
+            style="@style/AppBtn.Cancel"
+            android:layout_width="@dimen/vm_dimen_0"
+            android:layout_height="@dimen/vm_dimen_40"
+            android:layout_marginStart="@dimen/vm_dimen_24"
+            android:layout_marginEnd="@dimen/vm_dimen_8"
+            android:text="@string/btn_cancel"
+            android:textSize="@dimen/vm_size_15"
+            app:layout_constraintBottom_toBottomOf="@+id/positiveTV"
+            app:layout_constraintEnd_toStartOf="@+id/positiveTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/positiveTV"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/positiveTV"
+            style="@style/AppBtn.Confirm"
+            android:layout_width="@dimen/vm_dimen_0"
+            android:layout_height="@dimen/vm_dimen_40"
+            android:layout_marginStart="@dimen/vm_dimen_8"
+            android:layout_marginTop="@dimen/vm_dimen_48"
+            android:layout_marginEnd="@dimen/vm_dimen_24"
+            android:layout_marginBottom="@dimen/vm_dimen_20"
+            android:elevation="@dimen/vm_dimen_8"
+            android:text="@string/btn_save"
+            android:textSize="@dimen/vm_size_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/negativeTV"
+            app:layout_constraintTop_toBottomOf="@+id/liveConfigSV"
+            app:layout_goneMarginStart="@dimen/vm_dimen_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ui.skip.SkipActivity">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+
+    <ScrollView
+        android:id="@+id/liveConfigSV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--跳过开关-->
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:id="@+id/skipSwitchLV"
+                style="@style/AppLVStyle.Switch"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:vm_line_description="@string/skip_switch_desc"
+                app:vm_line_title="@string/skip_switch_title" />
+
+            <!--跳过提示-->
+            <com.vmloft.develop.library.tools.widget.VMLineView
+                android:id="@+id/skipToastLV"
+                style="@style/AppLVStyle.Switch"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/skipSwitchLV"
+                app:vm_line_description="@string/skip_toast_desc"
+                app:vm_line_title="@string/skip_toast_title" />
+
+            <EditText
+                android:id="@+id/skipDelayET"
+                style="@style/AppEdit.Single.Border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                android:hint="@string/input_hint"
+                android:inputType="number"
+                android:text="100"
+                app:layout_constraintTop_toBottomOf="@+id/skipToastLV" />
+
+            <TextView
+                android:id="@+id/skipDelayTipsTV"
+                style="@style/AppText.Tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vm_dimen_12"
+                android:layout_marginEnd="@dimen/vm_dimen_12"
+                android:background="@color/app_bg"
+                android:text="@string/skip_delay_tips"
+                app:layout_constraintBottom_toTopOf="@+id/skipDelayET"
+                app:layout_constraintStart_toStartOf="@+id/skipDelayET"
+                app:layout_constraintTop_toTopOf="@+id/skipDelayET" />
+
+            <EditText
+                android:id="@+id/skipToastET"
+                style="@style/AppEdit.Single.Border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                android:hint="@string/input_hint"
+                android:text="小不点 😁"
+                app:layout_constraintTop_toBottomOf="@+id/skipDelayET" />
+
+            <TextView
+                android:id="@+id/skipToastTipsTV"
+                style="@style/AppText.Tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vm_dimen_12"
+                android:layout_marginEnd="@dimen/vm_dimen_12"
+                android:background="@color/app_bg"
+                android:text="@string/skip_toast_msg_tips"
+                app:layout_constraintBottom_toTopOf="@+id/skipToastET"
+                app:layout_constraintStart_toStartOf="@+id/skipToastET"
+                app:layout_constraintTop_toTopOf="@+id/skipToastET" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

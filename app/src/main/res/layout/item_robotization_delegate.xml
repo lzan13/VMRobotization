@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_card_common_bg"
+    android:orientation="vertical"
+    android:padding="@dimen/vm_dimen_16"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.main.home.ItemRobotizationDelegate">
+
+    <TextView
+        android:id="@+id/titleTV"
+        style="@style/AppText.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/descTV"
+        style="@style/AppText.Desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vm_dimen_4" />
+
+</LinearLayout>

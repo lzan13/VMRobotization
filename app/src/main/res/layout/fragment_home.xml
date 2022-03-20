@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical"
+    tools:context=".ui.main.home.HomeFragment">
+
+    <include layout="@layout/widget_common_top_bar" />
+
+    <com.vmloft.develop.library.tools.widget.VMLineView
+        android:id="@+id/accessibilityStatusLV"
+        style="@style/AppLVStyle.Switch"
+        app:vm_line_description="@string/accessibility_status_desc"
+        app:vm_line_title="@string/accessibility_status_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never" />
+</LinearLayout>
