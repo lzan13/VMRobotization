@@ -34,7 +34,7 @@ object ExampleHelper {
     }
 
     /**
-     * 无障碍服务终端回调
+     * 无障碍服务中断回调
      */
     fun onServiceInterrupt() {
         // 停止自动化操作

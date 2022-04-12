@@ -42,6 +42,30 @@
                 app:vm_line_title="@string/skip_toast_title" />
 
             <EditText
+                android:id="@+id/skipStartDelayET"
+                style="@style/AppEdit.Single.Border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/vm_dimen_16"
+                android:hint="@string/input_hint"
+                android:inputType="number"
+                tools:text="520"
+                app:layout_constraintTop_toBottomOf="@+id/skipToastLV" />
+
+            <TextView
+                android:id="@+id/skipStartDelayTipsTV"
+                style="@style/AppText.Tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/vm_dimen_16"
+                android:layout_marginEnd="@dimen/vm_dimen_16"
+                android:background="@color/app_bg"
+                android:text="@string/skip_start_delay_tips"
+                app:layout_constraintBottom_toTopOf="@+id/skipStartDelayET"
+                app:layout_constraintStart_toStartOf="@+id/skipStartDelayET"
+                app:layout_constraintTop_toTopOf="@+id/skipStartDelayET" />
+
+            <EditText
                 android:id="@+id/skipDelayET"
                 style="@style/AppEdit.Single.Border"
                 android:layout_width="match_parent"
@@ -49,16 +73,16 @@
                 android:layout_margin="@dimen/vm_dimen_16"
                 android:hint="@string/input_hint"
                 android:inputType="number"
-                android:text="100"
-                app:layout_constraintTop_toBottomOf="@+id/skipToastLV" />
+                tools:text="220"
+                app:layout_constraintTop_toBottomOf="@+id/skipStartDelayET" />
 
             <TextView
                 android:id="@+id/skipDelayTipsTV"
                 style="@style/AppText.Tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vm_dimen_12"
-                android:layout_marginEnd="@dimen/vm_dimen_12"
+                android:layout_marginStart="@dimen/vm_dimen_16"
+                android:layout_marginEnd="@dimen/vm_dimen_16"
                 android:background="@color/app_bg"
                 android:text="@string/skip_delay_tips"
                 app:layout_constraintBottom_toTopOf="@+id/skipDelayET"
@@ -80,8 +104,8 @@
                 style="@style/AppText.Tips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/vm_dimen_12"
-                android:layout_marginEnd="@dimen/vm_dimen_12"
+                android:layout_marginStart="@dimen/vm_dimen_16"
+                android:layout_marginEnd="@dimen/vm_dimen_16"
                 android:background="@color/app_bg"
                 android:text="@string/skip_toast_msg_tips"
                 app:layout_constraintBottom_toTopOf="@+id/skipToastET"

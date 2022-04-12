@@ -71,7 +71,7 @@ object SkipHelper {
     }
 
     /**
-     * 无障碍服务终端回调
+     * 无障碍服务中断回调
      */
     fun onServiceInterrupt() {
         // 停止自动化操作
@@ -165,11 +165,11 @@ object SkipHelper {
                     if (currClassName != className) {
                         currClassName = className
                         if (launcherPackages.contains(packageName)) {
-                            // 这里一般是页面切换，弹窗通知等，比如青少年模式，通知开启，更新弹窗
+                            // 这里一般是页面切换，弹窗通知等，比如青少年模式，通知开启，更新弹窗，通讯录弹窗
                             event.text.forEach {
                                 if (it.contains("青少年模式") || it.contains("青少年守护模式") ||
-                                    it.contains("开启推送通知") || it.contains("打开通知") ||
-                                    it.contains("检测到更新") || it.contains("版本更新")
+                                    it.contains("开启推送通知") || it.contains("打开通知") ||it.contains("开启通知") ||
+                                    it.contains("检测到更新") || it.contains("版本更新")|| it.contains("发现通讯录朋友")
                                 ) {
                                     VMLog.e("有弹窗")
                                     startSkipTask()

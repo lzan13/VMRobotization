@@ -15,9 +15,9 @@
     <string name="home_test_title">测试无障碍</string>
     <string name="home_test_desc">👺测试无障碍功能，包括控件查找/点击/手势操作等</string>
     <string name="home_feedback_title">集思广益</string>
-    <string name="home_feedback_desc">✌️你说我上手，解放你的那双手</string>
+    <string name="home_feedback_desc">💭有需求或者好想法，快告诉我，我来帮你实现</string>
 
-    <string name="feedback_dialog">💭关注公众号【穿裤衩闯天下】随时反馈问题</string>
+    <string name="feedback_dialog">💭打开微信，搜索公众号【穿裤衩闯天下】并关注，随时获取最新工具，并反馈问题</string>
     <string name="feedback_copy_gzh">复制公众号</string>
     <string name="feedback_copy_gzh_tips">已复制公众号到剪切板，去微信关注我吧</string>
 
@@ -42,7 +42,7 @@
     <string name="live_dialog_title">直播配置</string>
     <string name="live_title">直播自动化配置</string>
     <string name="live_float_title">直播自动化悬浮窗</string>
-    <string name="live_float_desc">开启后，可通过悬浮窗快速进行自动化配置与开关！\n通过锁屏可随时中断操作！</string>
+    <string name="live_float_desc">开启后，可通过悬浮窗快速进行自动化配置与开关！\n回到桌面或锁屏可随时中断操作！</string>
     <!--消息-->
     <string name="live_msg_title">直播自动化消息处理</string>
     <string name="live_msg_delay_tips">消息延迟，单位 ms(1000ms=1s) 不能发送过快</string>
@@ -60,9 +60,10 @@
     <!--跳过相关-->
     <string name="skip_title">跳过配置</string>
     <string name="skip_switch_title">跳过开关</string>
-    <string name="skip_switch_desc">『小不点』会尝试自动跳过开屏广告、青少年/通知/更新/等弹窗</string>
+    <string name="skip_switch_desc">『小不点』会尝试自动跳过开屏广告，以及青少年模式/开启通知/版本更新等弹窗</string>
     <string name="skip_toast_title">跳过提醒</string>
     <string name="skip_toast_desc">『小不点』成功执行后会发出 Toast 轻提醒</string>
+    <string name="skip_start_delay_tips">跳过开始延迟，单位 ms(1000ms=1s)</string>
     <string name="skip_delay_tips">跳过延迟，单位 ms(1000ms=1s)</string>
     <string name="skip_toast_msg_tips">定制 Toast 提醒内容</string>
 </resources>

@@ -73,6 +73,7 @@ class SkipActivity : BActivity<ActivitySkipBinding>() {
         mBinding.skipSwitchLV.isActivated = config.skipSwitch
         mBinding.skipToastLV.isActivated = config.skipToast
 
+        mBinding.skipStartDelayET.setText(config.skipStartDelay.toString())
         mBinding.skipDelayET.setText(config.skipDelay.toString())
         mBinding.skipToastET.setText(config.toastMsg)
     }

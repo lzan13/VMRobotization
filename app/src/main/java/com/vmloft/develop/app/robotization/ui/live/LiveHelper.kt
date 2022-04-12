@@ -101,7 +101,7 @@ object LiveHelper {
     }
 
     /**
-     * 无障碍服务终端回调
+     * 无障碍服中断回调
      */
     fun onServiceInterrupt() {
         VMLog.d("服务中断 onServiceInterrupt")

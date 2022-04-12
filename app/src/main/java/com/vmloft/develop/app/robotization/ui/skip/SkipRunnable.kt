@@ -20,10 +20,9 @@ class SkipRunnable(val context: Context, val packageName: String) : Runnable {
     override fun run() {
         config = SkipHelper.getConfig()
 
+        Thread.sleep(config.skipStartDelay)
+
         skipADS()
-
-        Thread.sleep(config.skipDelay)
-
         skipDialog()
     }
 
@@ -31,17 +30,21 @@ class SkipRunnable(val context: Context, val packageName: String) : Runnable {
      * 执行跳过
      */
     private fun skipADS() {
-        val skipNode = RobotizationManager.getNodeInfo("跳过")
-            ?: RobotizationManager.getNodeInfo("跳过广告")
-            ?: if (packageName == "com.qiyi.video") RobotizationManager.getNodeInfo("关闭") else null
-        if (skipNode == null && adsCount < maxRetryCount) {
-            adsCount++
-            // 没找到控件，延迟一会继续进行递归调用
+        if (adsCount >= maxRetryCount) return
+        VMSystem.runTask {
+            // 延迟一会才处理
             Thread.sleep(config.skipDelay)
-            skipADS()
-        } else {
-            RobotizationManager.clickNode(skipNode!!)
-            if (config.skipToast) VMSystem.runInUIThread({ context.show(config.toastMsg) })
+            val skipNode = RobotizationManager.getNodeInfo("跳过")
+                ?: RobotizationManager.getNodeInfo("跳过广告")
+                ?: if (packageName == "com.qiyi.video") RobotizationManager.getNodeInfo("关闭") else null
+            if (skipNode == null) {
+                adsCount++
+                // 没找到控件，继续递归调用
+                skipADS()
+            } else {
+                RobotizationManager.clickNode(skipNode)
+                if (config.skipToast) VMSystem.runInUIThread({ context.show(config.toastMsg) })
+            }
         }
     }
 
@@ -49,17 +52,23 @@ class SkipRunnable(val context: Context, val packageName: String) : Runnable {
      * 执行跳过
      */
     private fun skipDialog() {
-        val skipNode = RobotizationManager.getNodeInfo("我知道了")
-            ?: RobotizationManager.getNodeInfo("以后再说")
-            ?: RobotizationManager.getNodeInfo("稍后再说")
-        if (skipNode == null && dialogCount < maxRetryCount) {
-            dialogCount++
-            // 没找到控件，延迟一会继续进行递归调用
+        if (dialogCount >= maxRetryCount) return
+        VMSystem.runTask {
+            // 延迟一会才处理
             Thread.sleep(config.skipDelay)
-            skipDialog()
-        } else {
-            RobotizationManager.clickNode(skipNode!!)
-            if (config.skipToast) VMSystem.runInUIThread({ context.show(config.toastMsg) })
+            val skipNode = RobotizationManager.getNodeInfo("我知道了")
+                ?: RobotizationManager.getNodeInfo("以后再说")
+                ?: RobotizationManager.getNodeInfo("稍后再说")
+                ?: RobotizationManager.getNodeInfo("暂不开启")
+                ?: RobotizationManager.getNodeInfo("拒绝")
+            if (skipNode == null) {
+                dialogCount++
+                // 没找到控件，继续递归调用
+                skipDialog()
+            } else {
+                RobotizationManager.clickNode(skipNode)
+                if (config.skipToast) VMSystem.runInUIThread({ context.show(config.toastMsg) })
+            }
         }
     }
 }
