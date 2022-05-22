@@ -60,7 +60,7 @@ class SkipRunnable(val context: Context, val packageName: String) : Runnable {
                 ?: RobotizationManager.getNodeInfo("以后再说")
                 ?: RobotizationManager.getNodeInfo("稍后再说")
                 ?: RobotizationManager.getNodeInfo("暂不开启")
-                ?: RobotizationManager.getNodeInfo("拒绝")
+                ?: RobotizationManager.getNodeInfo("拒绝", isEquals = true) // 拒绝这里一定要完全匹配，不然会在微信通话被拒绝后触发点击
             if (skipNode == null) {
                 dialogCount++
                 // 没找到控件，继续递归调用

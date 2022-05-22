@@ -113,35 +113,35 @@ object RobotizationManager {
         val path = Path()
         when (type) {
             1 -> {
-                x = (w / 2 + CUtils.random(72, true)).toFloat()
-                y = (h / 3 + CUtils.random(72, true)).toFloat()
-                endX = (w / 2 + CUtils.random(72, true)).toFloat()
-                endY = (h * 2 / 3 + CUtils.random(72, true)).toFloat()
+                x = (w / 2 + CUtils.random(24, true)).toFloat()
+                y = (h / 3 + CUtils.random(24, true)).toFloat()
+                endX = (w / 2 + CUtils.random(24, true)).toFloat()
+                endY = (h * 2 / 3 + CUtils.random(24, true)).toFloat()
                 path.moveTo(x, y)
                 path.lineTo(endX, endY)
             }
             2 -> {
-                x = (w * 2 / 3 + CUtils.random(72, true)).toFloat()
-                y = (h / 2 + CUtils.random(72, true)).toFloat()
-                endX = (w / 3 + CUtils.random(72, true)).toFloat()
-                endY = (h / 2 + CUtils.random(72, true)).toFloat()
+                x = (w * 2 / 3 + CUtils.random(24, true)).toFloat()
+                y = (h / 2 + CUtils.random(24, true)).toFloat()
+                endX = (w / 3 + CUtils.random(24, true)).toFloat()
+                endY = (h / 2 + CUtils.random(24, true)).toFloat()
                 path.moveTo(x, y)
                 path.lineTo(endX, endY)
             }
             3 -> {
-                x = (w / 3 + CUtils.random(72, true)).toFloat()
-                y = (h / 2 + CUtils.random(72, true)).toFloat()
-                endX = (w * 2 / 3 + CUtils.random(72, true)).toFloat()
-                endY = (h / 2 + CUtils.random(72, true)).toFloat()
+                x = (w / 3 + CUtils.random(24, true)).toFloat()
+                y = (h / 2 + CUtils.random(24, true)).toFloat()
+                endX = (w * 2 / 3 + CUtils.random(24, true)).toFloat()
+                endY = (h / 2 + CUtils.random(24, true)).toFloat()
                 path.moveTo(x, y)
                 path.lineTo(endX, endY)
             }
             else -> {
                 // 默认都上滑
-                x = (w / 2 + CUtils.random(72, true)).toFloat()
-                y = (h * 2 / 3 + CUtils.random(72, true)).toFloat()
-                endX = (w / 2 + CUtils.random(72, true)).toFloat()
-                endY = (h / 3 + CUtils.random(72, true)).toFloat()
+                x = (w / 2 + CUtils.random(24, true)).toFloat()
+                y = (h * 2 / 3 + CUtils.random(24, true)).toFloat()
+                endX = (w / 2 + CUtils.random(24, true)).toFloat()
+                endY = (h / 3 + CUtils.random(24, true)).toFloat()
                 path.moveTo(x, y)
                 path.lineTo(endX, endY)
             }
@@ -165,9 +165,9 @@ object RobotizationManager {
      * 点击节点
      * @param text 控件上的文字
      */
-    fun clickNode(text: String) {
+    fun clickNode(text: String, isEquals: Boolean = false) {
         if (service == null) return context.show(R.string.accessibility_service_not_start)
-        val nodeInfo = getNodeInfo(text) ?: return VMLog.d("没有找到控件")
+        val nodeInfo = getNodeInfo(text, isEquals = isEquals) ?: return VMLog.d("没有找到控件")
 
         clickNode(nodeInfo)
     }
@@ -177,6 +177,7 @@ object RobotizationManager {
      * @param node 节点控件
      */
     fun clickNode(node: AccessibilityNodeInfo) {
+        if (node == null) return
         // 直接执行控件的点击操作
         //        node.performAction(AccessibilityNodeInfo.ACTION_CLICK);//长按
         //        service?.clickView(node)
@@ -185,8 +186,8 @@ object RobotizationManager {
         val absXY = Rect()
         node.getBoundsInScreen(absXY)
         // 计算下触摸位置，这里加上一个随机数，尽量保证不要每次都是同一个位置
-        var x = absXY.left + (absXY.right - absXY.left) / 2 + CUtils.random(16, true)
-        var y = absXY.top + (absXY.bottom - absXY.top) / 2 + CUtils.random(16, true)
+        var x = absXY.left + (absXY.right - absXY.left) / 2 + CUtils.random(8, true)
+        var y = absXY.top + (absXY.bottom - absXY.top) / 2 + CUtils.random(8, true)
         // 执行点击操作，位置这里选择控件正中间+随机数
         service?.dispatchGestureClick(x, y)
 
@@ -234,8 +235,8 @@ object RobotizationManager {
         val absXY = Rect()
         nodeInfo.getBoundsInScreen(absXY)
         // 计算下触摸位置，这里加上一个随机数，尽量保证不要每次都是同一个位置
-        var x = absXY.left + (absXY.right - absXY.left) / 2 + CUtils.random(16, true)
-        var y = absXY.top + (absXY.bottom - absXY.top) / 2 + CUtils.random(16, true)
+        var x = absXY.left + (absXY.right - absXY.left) / 2 + CUtils.random(8, true)
+        var y = absXY.top + (absXY.bottom - absXY.top) / 2 + CUtils.random(8, true)
         // 执行长按操作，位置这里选择控件正中间+随机数
         service?.dispatchGestureLongClick(x, y)
     }
@@ -256,11 +257,11 @@ object RobotizationManager {
      * @param text 文本内容 或 控件id
      * @param packageName 包名 只有通过控件 id 查找时才需要
      */
-    fun getNodeInfo(text: String, packageName: String = ""): AccessibilityNodeInfo? {
+    fun getNodeInfo(text: String, packageName: String = "", isEquals: Boolean = false): AccessibilityNodeInfo? {
         return if (packageName.isNotEmpty()) {
             service?.findFirst(VMATypeFind.newId(packageName, text) as VMATypeFind<Any>)
         } else {
-            service?.findFirst(VMATypeFind.newText(text, false) as VMATypeFind<Any>)
+            service?.findFirst(VMATypeFind.newText(text, isEquals) as VMATypeFind<Any>)
         }
     }
 }

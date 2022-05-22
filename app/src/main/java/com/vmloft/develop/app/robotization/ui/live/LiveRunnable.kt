@@ -7,7 +7,6 @@ import com.vmloft.develop.app.robotization.service.RobotizationManager
 import com.vmloft.develop.library.base.utils.CUtils
 import com.vmloft.develop.library.base.utils.show
 import com.vmloft.develop.library.tools.utils.VMStr
-import com.vmloft.develop.library.tools.utils.VMSystem
 import com.vmloft.develop.library.tools.utils.logger.VMLog
 
 /**
@@ -35,7 +34,7 @@ class LiveRunnable(val context: Context, val what: Int = 0, val packageName: Str
     private fun liveThumb() {
         if (!LiveHelper.thumbStatus) return
         if (!RobotizationManager.isInit) return context.show(R.string.accessibility_service_not_start)
-        RobotizationManager.clickPosition(config.thumbX + CUtils.random(16, true), config.thumbY + CUtils.random(16, true))
+        RobotizationManager.clickPosition(config.thumbX + CUtils.random(8, true), config.thumbY + CUtils.random(16, true))
         // 循环下一次操作
         Thread.sleep(config.thumbDelay)
         liveThumb()
